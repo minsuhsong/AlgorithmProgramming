@@ -43,7 +43,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 	for (i = 0; i <= TSlen; i++)
 		Table[0][i] = i * ins_cost;
 
-	//TableÀ» dynaminc programmingÀ» ÀÌ¿ëÇÏ¿© ¿Ï¼º½ÃÅ²´Ù.
+	//Tableì„ dynaminc programmingì„ ì´ìš©í•˜ì—¬ ì™„ì„±ì‹œí‚¨ë‹¤.
 	for (i = 1; i <= SSlen; i++) {
 		for (j = 1; j <= TSlen; j++) {
 			if (SS[i - 1] == TS[j - 1])
@@ -53,7 +53,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 		}
 	}
 
-	//ins_cost <= del_cost ÀÌ¸é ¹İµå½Ã insert ¼±ÅÃ
+	//ins_cost <= del_cost ì´ë©´ ë°˜ë“œì‹œ insert ì„ íƒ
 	int tmp = SSlen;
 	i = SSlen, j = TSlen;
 	while (i && j) {
@@ -83,7 +83,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 		j--; tmp++;
 	}
 
-	//¿©±â¼­ºÎÅÍ backtracing
+	//ì—¬ê¸°ì„œë¶€í„° backtracing
 	*SR = new char[tmp + 1];
 	*TR = new char[tmp + 1];
 	*OP = new char[tmp + 1];
@@ -96,7 +96,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 	int tmp2 = tmp - 1;
 	i = SSlen, j = TSlen;
 	while (i && j) {
-		if (ins_cost <= del_cost) {//parentÀÇ ¼±ÅÃ¿¡ substitutionÀÌ Æ÷ÇÔµÇ¾î ÀÖ´Ù¸é ins_cost <= del_costÀÏ °æ¿ì insert ¼±ÅÃ
+		if (ins_cost <= del_cost) {//parentì˜ ì„ íƒì— substitutionì´ í¬í•¨ë˜ì–´ ìˆë‹¤ë©´ ins_cost <= del_costì¼ ê²½ìš° insert ì„ íƒ
 			if (Table[i][j] == Table[i][j - 1] + ins_cost) {
 				*(*OP + tmp2) = 'i';
 				*(*SR + tmp2) = '*';
@@ -116,7 +116,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 				tmp2--; i--; j--;
 			}
 		}
-		else {//parentÀÇ ¼±ÅÃ¿¡ substitutionÀÌ Æ÷ÇÔµÇ¾î ÀÖ´Ù¸é ins_cost > del_costÀÏ °æ¿ì delete ¼±ÅÃ
+		else {//parentì˜ ì„ íƒì— substitutionì´ í¬í•¨ë˜ì–´ ìˆë‹¤ë©´ ins_cost > del_costì¼ ê²½ìš° delete ì„ íƒ
 			if (Table[i][j] == Table[i - 1][j] + del_cost) {
 				*(*OP + tmp2) = 'd';
 				*(*SR + tmp2) = SS[i - 1];
@@ -137,7 +137,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 			}
 		}
 	}
-	//Source stringÀÌ ³²À¸¸é ÀüºÎ delete
+	//Source stringì´ ë‚¨ìœ¼ë©´ ì „ë¶€ delete
 	while (i) {
 		*(*TR + tmp2) = '*';
 		*(*SR + tmp2) = SS[i - 1];
@@ -145,7 +145,7 @@ char** TR,       // Edited string with deletion form S mark '*'
 		tmp2--; i--;
 	}
 
-	//Edit stringÀÌ ³²À¸¸é ÀüºÎ insert
+	//Edit stringì´ ë‚¨ìœ¼ë©´ ì „ë¶€ insert
 	while (j) {
 		*(*TR + tmp2) = TS[j - 1];
 		*(*SR + tmp2) = '*';
